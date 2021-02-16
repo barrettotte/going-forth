@@ -1,3 +1,3 @@
-module github.com/barrettotte/going-forth
+module barrettotte/going-forth
 
 go 1.15
