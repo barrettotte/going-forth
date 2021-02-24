@@ -1,11 +1,10 @@
 package main
 
 import (
-	"barrettotte/going-forth/stack"
+	"barrettotte/going-forth/forth"
 )
 
 func main() {
-	s := stack.Stack{}
-	s.New()
+	forth.NewForth()
 
 }

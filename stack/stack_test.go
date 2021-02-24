@@ -5,9 +5,8 @@ import (
 )
 
 func newStack() *Stack {
-	s := Stack{}
-	s.New()
-	return &s
+	s := NewStack()
+	return s
 }
 
 func TestPushPop(t *testing.T) {
@@ -23,7 +22,7 @@ func TestPushPop(t *testing.T) {
 	x, err := s.Pop()
 
 	if err != nil {
-		t.Errorf("Unexpected error occurred. %s", err.msg)
+		t.Errorf("Unexpected error occurred. %s", err.Error())
 	}
 	if x != 3 {
 		t.Errorf("Expected 3, but got %v", x)
@@ -51,7 +50,7 @@ func TestPeek(t *testing.T) {
 	x, err := s.Peek()
 
 	if err != nil {
-		t.Errorf("Unexpected error occurred. %s", err.msg)
+		t.Errorf("Unexpected error occurred. %s", err.Error())
 	}
 	if x != "CCC" {
 		t.Errorf("Expected 'AAA', but got %v", x)

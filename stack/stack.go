@@ -9,12 +9,15 @@ type Stack struct {
 }
 
 // UnderflowError occurs when peeking or popping an empty stack
-type UnderflowError struct {
-	msg string
+type UnderflowError struct{}
+
+func (err *UnderflowError) Error() string {
+	return "No items on stack"
 }
 
-// New creates a new stack
-func (s *Stack) New() *Stack {
+// NewStack creates a new stack
+func NewStack() *Stack {
+	s := new(Stack)
 	s.items = []Item{}
 	return s
 }
@@ -27,7 +30,7 @@ func (s *Stack) Push(item Item) {
 // Pop removes item from top of stack
 func (s *Stack) Pop() (Item, *UnderflowError) {
 	if len(s.items) == 0 {
-		return nil, &UnderflowError{"Cannot pop an empty stack!"}
+		return nil, &UnderflowError{}
 	}
 	tos := s.items[len(s.items)-1]
 	s.items = s.items[:len(s.items)-1]
@@ -37,7 +40,7 @@ func (s *Stack) Pop() (Item, *UnderflowError) {
 // Peek item on top of stack
 func (s *Stack) Peek() (Item, *UnderflowError) {
 	if len(s.items) == 0 {
-		return nil, &UnderflowError{"Cannot peek an empty stack!"}
+		return nil, &UnderflowError{}
 	}
 	return s.items[len(s.items)-1], nil
 }
