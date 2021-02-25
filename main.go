@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	forth.NewForth()
-
+	f := forth.NewForth()
+	f.Run()
 }

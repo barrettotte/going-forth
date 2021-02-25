@@ -1,5 +1,5 @@
 # going-forth
-A partial Forth interpreter written to learn about how Forth works.
+A toy Forth interpreter written to learn about how Forth works.
 
 
 ## Features
