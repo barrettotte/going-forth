@@ -40,7 +40,7 @@ func (f *Forth) InterpretStmt(s string) error {
 	var err error
 
 	for _, token := range strings.Split(s, " ") {
-		if def, found := f.dict[token]; found {
+		if def, found := f.dict[strings.ToLower(token)]; found {
 			err = def(f)
 
 			if err != nil {
@@ -65,7 +65,8 @@ func (f *Forth) addBuiltins() {
 	f.dict["1-"] = bSub1
 	f.dict["2*"] = bMul2
 	f.dict["2/"] = bDiv2
-	f.dict["/mod"] = bMod
+	f.dict["/mod"] = bDivMod
+	f.dict["mod"] = bMod
 	f.dict["="] = bEq
 	f.dict["<>"] = bNe
 	f.dict["<"] = bLt

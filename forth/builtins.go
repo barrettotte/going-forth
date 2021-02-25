@@ -39,7 +39,6 @@ func popN(s *stack.Stack, n int) ([]stack.Item, error) {
 
 	for i := 0; i < n; i++ {
 		x, err := s.Pop()
-
 		if err != nil {
 			return nil, err
 		}
@@ -164,8 +163,8 @@ func bDiv2(f *Forth) error {
 	return nil
 }
 
-// bMod  :/MOD ( n1 n2 -- n3 n4 )
-func bMod(f *Forth) error {
+// bDivMod  :/MOD ( n1 n2 -- n3 n4 )
+func bDivMod(f *Forth) error {
 	ops, err := popNInt(&f.ds, 2)
 	if err != nil {
 		return err
@@ -175,6 +174,19 @@ func bMod(f *Forth) error {
 	}
 	f.ds.Push(ops[1] % ops[0])
 	f.ds.Push(ops[1] / ops[0])
+	return nil
+}
+
+// bMod  :MOD ( n1 n2 -- n3 )
+func bMod(f *Forth) error {
+	ops, err := popNInt(&f.ds, 2)
+	if err != nil {
+		return err
+	}
+	if ops[1] == 0 {
+		return &DivByZeroError{}
+	}
+	f.ds.Push(ops[1] % ops[0])
 	return nil
 }
 
