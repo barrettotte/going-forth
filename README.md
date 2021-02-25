@@ -1,5 +1,6 @@
 # going-forth
-A toy Forth interpreter written to learn about how Forth works.
+A toy Forth interpreter written to learn about how Forth works
+and get more practice with Go.
 
 
 ## Features

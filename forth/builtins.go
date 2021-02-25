@@ -10,7 +10,7 @@ import (
 func popNInt(s *stack.Stack, n int) ([]int, error) {
 	items := make([]int, n)
 
-	for i := 1; i <= n; i++ {
+	for i := 0; i < n; i++ {
 		n, err := popInt(s)
 		if err != nil {
 			return nil, err
@@ -37,7 +37,7 @@ func popInt(s *stack.Stack) (int, error) {
 func popN(s *stack.Stack, n int) ([]stack.Item, error) {
 	items := make([]stack.Item, n)
 
-	for i := 1; i <= n; i++ {
+	for i := 0; i < n; i++ {
 		x, err := s.Pop()
 
 		if err != nil {
@@ -64,17 +64,17 @@ func relop(s *stack.Stack, operator string) error {
 	}
 	switch operator {
 	case "=":
-		s.Push(boolToInt(ops[0] == ops[1]))
+		s.Push(boolToInt(ops[1] == ops[0]))
 	case "<>":
-		s.Push(boolToInt(ops[0] != ops[1]))
+		s.Push(boolToInt(ops[1] != ops[0]))
 	case "<":
-		s.Push(boolToInt(ops[0] < ops[1]))
+		s.Push(boolToInt(ops[1] < ops[0]))
 	case ">":
-		s.Push(boolToInt(ops[0] > ops[1]))
+		s.Push(boolToInt(ops[1] > ops[0]))
 	case "<=":
-		s.Push(boolToInt(ops[0] <= ops[1]))
+		s.Push(boolToInt(ops[1] <= ops[0]))
 	case ">=":
-		s.Push(boolToInt(ops[0] >= ops[1]))
+		s.Push(boolToInt(ops[1] >= ops[0]))
 	default:
 		return &UnknownOperatorError{}
 	}
@@ -87,7 +87,7 @@ func bAdd(f *Forth) error {
 	if err != nil {
 		return err
 	}
-	f.ds.Push(ops[0] + ops[1])
+	f.ds.Push(ops[1] + ops[0])
 	return nil
 }
 
@@ -107,7 +107,7 @@ func bSub(f *Forth) error {
 	if err != nil {
 		return err
 	}
-	f.ds.Push(ops[0] - ops[1])
+	f.ds.Push(ops[1] - ops[0])
 	return nil
 }
 
@@ -127,7 +127,7 @@ func bMul(f *Forth) error {
 	if err != nil {
 		return err
 	}
-	f.ds.Push(ops[0] * ops[1])
+	f.ds.Push(ops[1] * ops[0])
 	return nil
 }
 
@@ -147,10 +147,10 @@ func bDiv(f *Forth) error {
 	if err != nil {
 		return err
 	}
-	if ops[1] == 0 {
+	if ops[0] == 0 {
 		return &DivByZeroError{}
 	}
-	f.ds.Push(ops[0] / ops[1])
+	f.ds.Push(ops[1] / ops[0])
 	return nil
 }
 
@@ -173,8 +173,8 @@ func bMod(f *Forth) error {
 	if ops[1] == 0 {
 		return &DivByZeroError{}
 	}
-	f.ds.Push(ops[0] % ops[1])
-	f.ds.Push(ops[0] / ops[1])
+	f.ds.Push(ops[1] % ops[0])
+	f.ds.Push(ops[1] / ops[0])
 	return nil
 }
 
@@ -240,10 +240,10 @@ func b2Dup(f *Forth) error {
 	if err != nil {
 		return err
 	}
-	f.ds.Push(pair[0])
 	f.ds.Push(pair[1])
 	f.ds.Push(pair[0])
 	f.ds.Push(pair[1])
+	f.ds.Push(pair[0])
 	return nil
 }
 
@@ -271,8 +271,8 @@ func bSwap(f *Forth) error {
 	if err != nil {
 		return err
 	}
-	f.ds.Push(pair[1])
 	f.ds.Push(pair[0])
+	f.ds.Push(pair[1])
 	return nil
 }
 
@@ -282,9 +282,9 @@ func bOver(f *Forth) error {
 	if err != nil {
 		return err
 	}
-	f.ds.Push(pair[0])
 	f.ds.Push(pair[1])
 	f.ds.Push(pair[0])
+	f.ds.Push(pair[1])
 	return nil
 }
 
@@ -295,8 +295,8 @@ func bRot(f *Forth) error {
 		return err
 	}
 	f.ds.Push(trio[1])
-	f.ds.Push(trio[2])
 	f.ds.Push(trio[0])
+	f.ds.Push(trio[2])
 	return nil
 }
 
@@ -306,7 +306,7 @@ func bDot(f *Forth) error {
 	if err != nil {
 		return err
 	}
-	fmt.Println(n)
+	fmt.Print(n)
 	return nil
 }
 

@@ -2,16 +2,19 @@ package forth
 
 import (
 	"barrettotte/going-forth/stack"
+	"fmt"
+	"strconv"
+	"strings"
 )
 
 // compiled word
-type definition func(*Forth) error
+type word func(*Forth) error
 
 // Forth environment
 type Forth struct {
-	ds    stack.Stack           // data stack
-	rs    stack.Stack           // return stack
-	words map[string]definition // dictionary of words available
+	ds   stack.Stack     // data stack
+	rs   stack.Stack     // return stack
+	dict map[string]word // dictionary of words available
 }
 
 // NewForth creates and initializes a new Forth environment
@@ -20,50 +23,67 @@ func NewForth() *Forth {
 	f.ds = *stack.NewStack()
 	f.rs = *stack.NewStack()
 
-	f.words = make(map[string]definition)
+	f.dict = make(map[string]word)
 	f.addBuiltins()
 	return f
 }
 
 // InterpretFile reads a file and interprets its contents
 func (f *Forth) InterpretFile() {
-
+	// TODO:
+	// read file
+	// for each line call InterpretStmt
 }
 
-// InterpretLine interprets a line of text
-func (f *Forth) InterpretLine() {
+// InterpretStmt interprets a Forth statement
+func (f *Forth) InterpretStmt(s string) error {
+	var err error
 
+	for _, token := range strings.Split(s, " ") {
+		if def, found := f.dict[token]; found {
+			err = def(f)
+
+			if err != nil {
+				break
+			}
+		} else if n, err := strconv.Atoi(token); err == nil {
+			f.ds.Push(n)
+		} else {
+			fmt.Printf("Invalid token encountered '%s'\n", token)
+		}
+	}
+	return err
 }
 
 // Add built-in words to Forth environment
 func (f *Forth) addBuiltins() {
-	f.words["+"] = bAdd
-	f.words["-"] = bSub
-	f.words["*"] = bMul
-	f.words["/"] = bDiv
-	f.words["1+"] = bAdd1
-	f.words["1-"] = bSub1
-	f.words["2*"] = bMul2
-	f.words["2/"] = bDiv2
-	f.words["/mod"] = bMod
-	f.words["="] = bEq
-	f.words["<>"] = bNe
-	f.words["<"] = bLt
-	f.words[">"] = bGt
-	f.words["<="] = bLe
-	f.words[">="] = bGe
-	f.words["true"] = bTrue
-	f.words["false"] = bFalse
-	f.words["dup"] = bDup
-	f.words["2dup"] = b2Dup
-	f.words["drop"] = bDrop
-	f.words["2drop"] = b2Drop
-	f.words["swap"] = bSwap
-	f.words["over"] = bOver
-	f.words["rot"] = bRot
-	f.words["."] = bDot
-	f.words[".s"] = bShow
-	f.words[".r"] = bShowR
-	f.words["cr"] = bCr
-	f.words["emit"] = bEmit
+	f.dict["+"] = bAdd
+	f.dict["-"] = bSub
+	f.dict["*"] = bMul
+	f.dict["/"] = bDiv
+	f.dict["1+"] = bAdd1
+	f.dict["1-"] = bSub1
+	f.dict["2*"] = bMul2
+	f.dict["2/"] = bDiv2
+	f.dict["/mod"] = bMod
+	f.dict["="] = bEq
+	f.dict["<>"] = bNe
+	f.dict["<"] = bLt
+	f.dict[">"] = bGt
+	f.dict["<="] = bLe
+	f.dict[">="] = bGe
+	f.dict["true"] = bTrue
+	f.dict["false"] = bFalse
+	f.dict["dup"] = bDup
+	f.dict["2dup"] = b2Dup
+	f.dict["drop"] = bDrop
+	f.dict["2drop"] = b2Drop
+	f.dict["swap"] = bSwap
+	f.dict["over"] = bOver
+	f.dict["rot"] = bRot
+	f.dict["."] = bDot
+	f.dict[".s"] = bShow
+	f.dict[".r"] = bShowR
+	f.dict["cr"] = bCr
+	f.dict["emit"] = bEmit
 }

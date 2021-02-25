@@ -6,5 +6,5 @@ import (
 
 func main() {
 	f := forth.NewForth()
-	f.Run()
+	f.InterpretStmt("1 2 - .")
 }
