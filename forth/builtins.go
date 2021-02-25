@@ -55,7 +55,7 @@ func boolToInt(b bool) int {
 	return 0
 }
 
-// relational operators ( n1 n2 -- FLAG )
+// relational operators ( n1 n2 -- flag )
 func relop(s *stack.Stack, operator string) error {
 	ops, err := popNInt(s, 2)
 	if err != nil {
@@ -193,43 +193,43 @@ func bMod(f *Forth) error {
 // TODO: zero-relational operators
 // 0=  0<>  0<  0>  0<=  0>=
 
-// bEq  := ( n1 n2 -- FLAG )
+// bEq  := ( n1 n2 -- flag )
 func bEq(f *Forth) error {
 	return relop(&f.ds, "=")
 }
 
-// bNe  :<> ( n1 n2 -- FLAG )
+// bNe  :<> ( n1 n2 -- flag )
 func bNe(f *Forth) error {
 	return relop(&f.ds, "<>")
 }
 
-// bLt  :< ( n1 n2 -- FLAG )
+// bLt  :< ( n1 n2 -- flag )
 func bLt(f *Forth) error {
 	return relop(&f.ds, "<")
 }
 
-// bGt  :> ( n1 n2 -- FLAG )
+// bGt  :> ( n1 n2 -- flag )
 func bGt(f *Forth) error {
 	return relop(&f.ds, ">")
 }
 
-// bLe  :<= ( n1 n2 -- FLAG )
+// bLe  :<= ( n1 n2 -- flag )
 func bLe(f *Forth) error {
 	return relop(&f.ds, "<=")
 }
 
-// bGe  :>= ( n1 n2 -- FLAG )
+// bGe  :>= ( n1 n2 -- flag )
 func bGe(f *Forth) error {
 	return relop(&f.ds, ">=")
 }
 
-// bTrue  :true ( -- FLAG )
+// bTrue  :true ( -- flag )
 func bTrue(f *Forth) error {
 	f.ds.Push(1)
 	return nil
 }
 
-// bFalse  :false ( -- FLAG )
+// bFalse  :false ( -- flag )
 func bFalse(f *Forth) error {
 	f.ds.Push(0)
 	return nil
