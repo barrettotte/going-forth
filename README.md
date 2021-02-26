@@ -4,11 +4,21 @@ and get more practice with Go.
 
 
 ## Features
+This is missing a lot of features expected of Forth, 
+but this is the minimal functionality I wanted.
+
 - Built-in words (see below)
-- 
+- Comments 
+  - line starting with ```--``` or ```\```
+  - inside ```( )```
+- Compile custom words
+
+TODO: ```cr``` is non-functional unless its written twice??
+
+Actual examples of features can be found in [examples/](examples/)
 
 
-## Built-in Words
+### Built-in Words
 - ```:+  ( n1 n2 -- n3 )```
 - ```:-  ( n1 n2 -- n3 )```
 - ```:*  ( n1 n2 -- n3 )```

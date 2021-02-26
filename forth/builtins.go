@@ -28,7 +28,7 @@ func popInt(s *stack.Stack) (int, error) {
 	}
 	i, ok := n.(int)
 	if !ok {
-		return 0, &UnexpectedTypeError{}
+		return 0, &unexpectedTypeError{}
 	}
 	return i, nil
 }
@@ -75,7 +75,7 @@ func relop(s *stack.Stack, operator string) error {
 	case ">=":
 		s.Push(boolToInt(ops[1] >= ops[0]))
 	default:
-		return &UnknownOperatorError{}
+		return &unknownOperatorError{operator}
 	}
 	return nil
 }
@@ -147,7 +147,7 @@ func bDiv(f *Forth) error {
 		return err
 	}
 	if ops[0] == 0 {
-		return &DivByZeroError{}
+		return &divByZeroError{}
 	}
 	f.ds.Push(ops[1] / ops[0])
 	return nil
@@ -170,7 +170,7 @@ func bDivMod(f *Forth) error {
 		return err
 	}
 	if ops[1] == 0 {
-		return &DivByZeroError{}
+		return &divByZeroError{}
 	}
 	f.ds.Push(ops[1] % ops[0])
 	f.ds.Push(ops[1] / ops[0])
@@ -184,7 +184,7 @@ func bMod(f *Forth) error {
 		return err
 	}
 	if ops[1] == 0 {
-		return &DivByZeroError{}
+		return &divByZeroError{}
 	}
 	f.ds.Push(ops[1] % ops[0])
 	return nil
@@ -318,7 +318,7 @@ func bDot(f *Forth) error {
 	if err != nil {
 		return err
 	}
-	fmt.Print(n)
+	fmt.Printf("%v", n)
 	return nil
 }
 
@@ -340,6 +340,7 @@ func bShowR(f *Forth) error {
 
 // bCr  :cr  ( -- )
 func bCr(f *Forth) error {
+	fmt.Println("???")
 	fmt.Println()
 	return nil
 }
