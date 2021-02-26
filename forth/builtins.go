@@ -3,7 +3,6 @@ package forth
 import (
 	"barrettotte/going-forth/stack"
 	"fmt"
-	"strconv"
 )
 
 // try to pop n integers from stack
@@ -340,7 +339,6 @@ func bShowR(f *Forth) error {
 
 // bCr  :cr  ( -- )
 func bCr(f *Forth) error {
-	fmt.Println("???")
 	fmt.Println()
 	return nil
 }
@@ -351,7 +349,7 @@ func bEmit(f *Forth) error {
 	if err != nil {
 		return err
 	}
-	fmt.Print(strconv.Itoa(n))
+	fmt.Print(string(rune(n)))
 	return nil
 }
 

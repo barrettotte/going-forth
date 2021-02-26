@@ -12,6 +12,7 @@ func main() {
 
 	// err = f.InterpretFile("examples/first.fth")
 	// err = f.InterpretFile("examples/arithmetic.fth")
+	// err = f.InterpretFile("examples/moreops.fth")
 	err = f.InterpretFile("examples/define.fth")
 
 	if err != nil {
