@@ -34,7 +34,7 @@ but this is the minimal functionality I wanted to play around with.
 cr hello cr  \ HELLO
 ```
 
-More examples of features can be found in [examples/](examples/)
+More examples of features can be found in [forth-pgms/](forth-pgms/)
 
 
 ### Missing Features
