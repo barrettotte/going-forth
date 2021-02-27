@@ -3,6 +3,7 @@ package forth
 import (
 	"barrettotte/going-forth/stack"
 	"bufio"
+	"fmt"
 	"os"
 	"strconv"
 	"strings"
@@ -58,7 +59,7 @@ func (f *Forth) InterpretFile(path string) error {
 	lines := strings.Split(compiled, "\n")
 
 	for i, line := range lines {
-		err = f.InterpretStmt(line)
+		err = f.InterpretStmt(fmt.Sprintf(" %s ", line))
 		if err != nil {
 			if rte, ok := err.(*RuntimeError); ok {
 				rte.line = i + 1
@@ -89,8 +90,6 @@ func (f *Forth) InterpretStmt(s string) error {
 		} else if c == ' ' {
 			if state == stateCommentCheck {
 				state = stateComment
-			} else if state == stateCompileCheck {
-				state = stateCompile
 			} else if def, found := f.dict[strings.ToLower(token)]; found {
 				// process word
 

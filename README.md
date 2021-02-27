@@ -7,38 +7,50 @@ in ARM assembly.
 
 
 ## Features
-This is missing some features expected of Forth, 
-but this is the minimal functionality I wanted.
+This is missing a lot of features expected of a typical Forth, 
+but this is the minimal functionality I wanted to play around with.
 
 - Built-in words (see below)
 - Comments
-  - line starting with ```--``` or ```\```
-  - inside ```( )```
+  - line comments starting with ```--``` or ```\```
+  - inline comments within ```( )```
 - Compile custom words with format ```: doubleme 2 * ;```
 
-Actual examples of features can be found in [examples/](examples/)
 
+### Example
+```forth
+\ examples/define.fth
+\
+\ example of compiling words
 
-TODO: ```cr``` is non-functional unless its written twice??
+: doubleme ( n1 -- n2 ) 2 * ;
+: quadme ( n1 -- n2 ) doubleme doubleme ;
 
-TODO: error ```1 2dup . . . cr  -- 111  TODO: ???```
+8 doubleme . cr  \ 16
+8 quadme . cr    \ 32
 
-TODO: attempt do loop
+: hello 79 76 76 69 72 emit emit emit emit emit ;
 
-TODO: attempt if,then,else
+cr hello cr  \ HELLO
+```
+
+More examples of features can be found in [examples/](examples/)
 
 
 ### Missing Features
-I did say this was a "toy Forth interpreter" so it is missing some things. 
+I did say this was a "toy Forth interpreter" so it is missing a lot. 
 I hope to tackle a more feature complete version in the future.
 
-- ```."``` word for declaring string literals
-- Return stack functionality
+- Zero-relational operators - ```0=  0<>  0<  0>  0<=  0>=```
+- String literals - ```."```
+- do loop
+- if, then, else
+- Return stack functionality - ```r>```, ```r@```, ```.r```
 - Variables, constants
+- File includes
 
 
 ### Built-in Words
-TODO: 0 rel ops
 
 - ```:+  ( n1 n2 -- n3 )```
 - ```:-  ( n1 n2 -- n3 )```
@@ -75,5 +87,5 @@ TODO: 0 rel ops
 ## References
 - [Starting FORTH](https://www.forth.com/starting-forth/)
 - [Moving FORTH](http://www.bradrodriguez.com/papers/moving1.htm)
+- [The infamous jonesforth.S](https://github.com/nornagon/jonesforth/blob/master/jonesforth.S)
 - [Easy Forth](https://skilldrick.github.io/easyforth/)
-- [The infamous jonesforth.s](https://github.com/nornagon/jonesforth/blob/master/jonesforth.S)

@@ -189,9 +189,6 @@ func bMod(f *Forth) error {
 	return nil
 }
 
-// TODO: zero-relational operators
-// 0=  0<>  0<  0>  0<=  0>=
-
 // bEq  := ( n1 n2 -- flag )
 func bEq(f *Forth) error {
 	return relop(&f.ds, "=")
@@ -352,5 +349,3 @@ func bEmit(f *Forth) error {
 	fmt.Print(string(rune(n)))
 	return nil
 }
-
-// TODO: bDotQuote :." ( -- )
