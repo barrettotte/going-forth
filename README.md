@@ -81,7 +81,7 @@ I hope to tackle a more feature complete version in the future.
 - ```: .s  ( -- )```
 - ```: .r  ( -- )``` (non-functional)
 - ```: .cr  ( -- )```
-- ```: .emit  ( n -- )```
+- ```: emit  ( n -- )```
 
 
 ## References
